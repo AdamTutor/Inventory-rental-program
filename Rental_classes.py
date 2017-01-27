@@ -16,3 +16,26 @@ class Item():
         self.deposit_value = deposit_value
         self.price = price
         self.quantity = quantity
+    def get_name(self):
+        "returns the name of the object"
+        return self.name 
+        
+
+    def get_replacement_value(self):
+        """Return the replacement value of the object"""
+        return self.replacement_value
+
+
+    def get_deposit_value(self):
+        """Return the deposit value of the object"""
+        return self.deposit_value
+
+
+    def get_price(self):
+        """Return the price value of the object"""
+        return self.price
+
+
+    def get_quantity(self):
+        """Return the pricet value of the object"""
+        return self.quantity
