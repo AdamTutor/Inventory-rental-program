@@ -33,3 +33,10 @@ class Test_Item():
     def test_get_quantity(self):
         item = Item('Ps4',400,40,3,20)
         assert item.get_quantity() == 20
+
+
+    def test_item_rented(self):
+        item = Item('Ps4',400,40,3,20)
+        original_quantity = item.quantity
+        item.item_rented()
+        assert item.quantity == original_quantity - 1

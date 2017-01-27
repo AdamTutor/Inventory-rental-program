@@ -39,3 +39,7 @@ class Item():
     def get_quantity(self):
         """Return the pricet value of the object"""
         return self.quantity
+
+    def item_rented(self):
+        self.quantity = self.quantity -1
+        return self.quantity
