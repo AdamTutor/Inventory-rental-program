@@ -40,3 +40,10 @@ class Test_Item():
         original_quantity = item.quantity
         item.item_rented()
         assert item.quantity == original_quantity - 1
+
+
+    def test_item_returned(self):
+        item = Item('Ps4',400,40,3,20)
+        original_quantity = item.quantity
+        item.item_returned()
+        assert item.quantity == original_quantity + 1

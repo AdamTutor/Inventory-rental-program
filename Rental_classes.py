@@ -43,3 +43,8 @@ class Item():
     def item_rented(self):
         self.quantity = self.quantity -1
         return self.quantity
+
+    
+    def item_returned(self):
+        self.quantity = self.quantity + 1
+        return self.quantity
