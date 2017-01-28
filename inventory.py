@@ -36,9 +36,5 @@ def update_inventory():
 #         l = list(inventory)
 #         print(l[0][0].split(",")[0])
    
-a = []
-for i in get_inv('inventory.csv'):
-    b = Item(i[0],i[1],i[2],i[3],i[4])
-    a.append(b)
-
+view_inv(get_inv("inventory.csv"))
 
