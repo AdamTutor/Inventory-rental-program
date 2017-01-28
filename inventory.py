@@ -15,9 +15,8 @@ def get_inv(filename):
 
 def view_inv(inventory_list):
     for item in inventory_list:
-        print(item[0].split()[0])
+        print(item[0],item[1], item[2], item[3], item[4])
 
-# view_inv(get_inv("inventory.csv"))
 
 
 def update_inventory():
@@ -37,7 +36,9 @@ def update_inventory():
 #         l = list(inventory)
 #         print(l[0][0].split(",")[0])
    
+a = []
+for i in get_inv('inventory.csv'):
+    b = Item(i[0],i[1],i[2],i[3],i[4])
+    a.append(b)
 
 
-l = get_inv('inventory.csv')
-print(l)

@@ -16,6 +16,11 @@ class Item():
         self.deposit_value = deposit_value
         self.price = price
         self.quantity = quantity
+
+    def __str__(self):
+        return self.name
+        
+           
     def get_name(self):
         "returns the name of the object"
         return self.name 
