@@ -3,7 +3,8 @@ from Rental_classes import *
 
 
 def get_inv(filename):
-    """Takes in a csv file as a parameter and reads 
+    """ (file_obj) --> (list)
+    Takes in a csv file as a parameter and reads 
     the file and outputs a cvs.reader object that is converted to a list of lists."""
     inventory_list = []
     with open(filename, newline='') as inv:
@@ -12,19 +13,22 @@ def get_inv(filename):
         # returns list of lists from reader object. 
         return list(inventory)
 
+
 def get_item_by_name(inventory_list, name):
-    print(inventory_list, name)
+    """ (list(list), str) --> (Item)
+    Searches for item in inventory by name and converts item in to Item object.
+    """
+    #initializes customer_item variable
+    customer_item = ''
     for i in inventory_list:
-        print(Item(i[0], i[1], i[2], i[3], i[4]))
-        # print(Item(i[0]))
-        # if Item(i[0].split()).name == name: 
-        #     customer_item = i
-        #     print(customer_item)
-        # return(customer_item)
+        # Checks if the name of a Item object is = to the name paramater
+        if Item(i[0], i[1], i[2], i[3], i[4]).name == name: 
+            customer_item =  Item(i[0], i[1], i[2], i[3], i[4])
+            return customer_item
+
     
-
-
 def view_inv(inventory_list):
+    "Takes in a list of Items and prints all attribues out for each Item in the list"
     for item in inventory_list:
         print('\nProduct: ' + item[0], '\ndeposit: ' ,item[1], "\nprice per hour: ",item[2], '\ncurrent stock: ', item[3], "\n")
 
