@@ -18,32 +18,7 @@ class Item():
         self.quantity = quantity
 
     def __str__(self):
-        return self.name + " " + str(self.replacement_value)+ " " + str(self.deposit_value)+ " " + str(self.price)+ " " + str(self.quantity)
-
-
-    def get_name(self):
-        "returns the name of the object"
-        return self.name 
-        
-
-    def get_replacement_value(self):
-        """Return the replacement value of the object"""
-        return self.replacement_value
-
-
-    def get_deposit_value(self):
-        """Return the deposit value of the object"""
-        return self.deposit_value
-
-
-    def get_price(self):
-        """Return the price value of the object"""
-        return self.price
-
-
-    def get_quantity(self):
-        """Return the pricet value of the object"""
-        return self.quantity
+        return "product: " + self.name + "\nreplacement value: " + str(self.replacement_value)+ "\nDeposit value: " + str(self.deposit_value)+ "\nprice " + str(self.price)+ "\nquantity " + str(self.quantity)
 
     def item_rented(self):
         self.quantity = self.quantity -1
@@ -53,6 +28,7 @@ class Item():
     def item_returned(self):
         self.quantity = self.quantity + 1
         return self.quantity
+
 
 
 
