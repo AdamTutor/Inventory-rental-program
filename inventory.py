@@ -15,7 +15,7 @@ def get_inv(filename):
 def get_item_by_name(inventory_list, name):
     print(inventory_list, name)
     for i in inventory_list:
-        print(Item(i[0], i[1], i[2], i[3]), i[4])
+        print(Item(i[0], i[1], i[2], i[3], i[4]))
         # print(Item(i[0]))
         # if Item(i[0].split()).name == name: 
         #     customer_item = i
