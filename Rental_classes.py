@@ -18,7 +18,7 @@ class Item():
         self.quantity = quantity
 
     def __str__(self):
-        return "product: " + self.name + "\nreplacement value: " + str(self.replacement_value)+ "\nDeposit value: " + str(self.deposit_value)+ "\nprice " + str(self.price)+ "\nquantity " + str(self.quantity)
+        return "product: " + self.name + "\nreplacement value: " + str(self.replacement_value)+ "\nDeposit value: " + str(self.deposit_value)+ "\nprice: " + str(self.price)+ "\nquantity: " + str(self.quantity)
 
     def item_rented(self):
         self.quantity = self.quantity -1
