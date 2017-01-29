@@ -8,20 +8,29 @@ def get_inv(filename):
     inventory_list = []
     with open(filename, newline='') as inv:
     #csv.reader(file to be read, singe character to seperate feilds, A one-character string used to quote fields containing special characters)
-        inventory = csv.reader(inv, delimiter=' ', quotechar='|')
+        inventory = csv.reader(inv, delimiter=',', quotechar='|')
         # returns list of lists from reader object. 
         return list(inventory)
+
+def get_item_by_name(inventory_list, name):
+    print(inventory_list, name)
+    for i in inventory_list:
+        print(Item(i[0], i[1], i[2], i[3]), i[4])
+        # print(Item(i[0]))
+        # if Item(i[0].split()).name == name: 
+        #     customer_item = i
+        #     print(customer_item)
+        # return(customer_item)
+    
 
 
 def view_inv(inventory_list):
     for item in inventory_list:
-        print(item[0],item[1], item[2], item[3], item[4])
-
+        print('\nProduct: ' + item[0], '\ndeposit: ' ,item[1], "\nprice per hour: ",item[2], '\ncurrent stock: ', item[3], "\n")
 
 
 def update_inventory():
     with open("inventory.csv", "a", newline='') as myfile:
-    
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
         name = 'ps4'
         replacement_value = 400
@@ -36,5 +45,6 @@ def update_inventory():
 #         l = list(inventory)
 #         print(l[0][0].split(",")[0])
    
-view_inv(get_inv("inventory.csv"))
+
+
 
