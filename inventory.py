@@ -22,7 +22,6 @@ def get_item_by_name(inventory_list, name):
     customer_item = ''
     for i in inventory_list:
         # Checks if the name of a Item object is = to the name paramater
-        if Item(i[0], i[1], i[2], i[3], i[4]).name == name: 
             customer_item = Item(i[0], i[1], i[2], i[3], i[4])
             return customer_item
 
@@ -49,7 +48,7 @@ def update_inventory(name, quantity):
    
 
 
-   
+
 
 
 # with open('inventory.csv', newline='') as inv:

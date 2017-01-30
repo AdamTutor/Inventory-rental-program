@@ -19,6 +19,7 @@ def rent():
     inv = get_inv('inventory.csv')
     view_inv(inv)
     item = input("What will you be renting? Product name: ").strip().lower()
+    print(item)
     Customer_choice = get_item_by_name(get_inv('inventory.csv'), item)
     print(Customer_choice.deposit_value, Customer_choice.price)
     print("You must place a deposit of" ,Customer_choice.deposit_value," dollars along with a fee of" ,Customer_choice.price,  " dollars every hour the item is rented. Deposits are refunded upon return.\n")
@@ -33,6 +34,7 @@ def rent():
     else: 
         print('invalid entry')
         restart()
+
 
 
 def restart():
@@ -73,11 +75,14 @@ def start():
     action = input('c or m\n').strip().lower()
     if action == "c":
         customer()
-    if action == "m":
+    elif action == "m":
         manager()
+    else:
+        print("\nINVALID INPUT\n")
+        start()
     
 def manager():
-    print('manager was chosen')
+    print()
     
     
 start()
