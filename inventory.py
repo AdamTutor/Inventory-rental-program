@@ -2,16 +2,16 @@ import csv
 from Rental_classes import *
 
 
-def get_inv(filename):
+def get_file_contents(filename):
     """ (file_obj) --> (list)
     Takes in a csv file as a parameter and reads 
     the file and outputs a cvs.reader object that is converted to a list of lists."""
-    inventory_list = []
+    content_list = []
     with open(filename, newline='') as inv:
     #csv.reader(file to be read, singe character to seperate feilds, A one-character string used to quote fields containing special characters)
-        inventory = csv.reader(inv, delimiter=',', quotechar='|')
+        content = csv.reader(inv, delimiter=',', quotechar='|')
         # returns list of lists from reader object. 
-        return list(inventory)
+        return list(content)
 
 
 def get_item_by_name(inventory_list, name):
@@ -26,7 +26,14 @@ def get_item_by_name(inventory_list, name):
             customer_item = Item(i[0], i[1], i[2], i[3], i[4])
             return customer_item
 
-    
+def view_trans(trans_list):
+    """(list(list), str) --> (Item)
+    Searches for item in inventory by name and converts item in to Item object."""
+    transaction = ''
+    for transaction in trans_list:
+        print("\nDatetime: " + transaction[0], "\nItem:", transaction[1], "\nstatus", transaction[2])
+        
+
 def view_inv(inventory_list):
     "Takes in a list of Items and prints all attribues out for each Item in the list"
     for item in inventory_list:
@@ -35,7 +42,7 @@ def view_inv(inventory_list):
 
 def update_inventory(name, quantity):
         Item_obj_l = []
-        inv = get_inv('inventory.csv')
+        inv =  get_file_contents('inventory.csv')
         for i in inv:
             Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
         for i in Item_obj_l:
