@@ -23,7 +23,7 @@ def get_item_by_name(inventory_list, name):
     for i in inventory_list:
         # Checks if the name of a Item object is = to the name paramater
         if Item(i[0], i[1], i[2], i[3], i[4]).name == name: 
-            customer_item =  Item(i[0], i[1], i[2], i[3], i[4])
+            customer_item = Item(i[0], i[1], i[2], i[3], i[4])
             return customer_item
 
     
@@ -33,15 +33,17 @@ def view_inv(inventory_list):
         print('\nProduct: ' + item[0], '\ndeposit: ' ,item[1], "\nprice per hour: ",item[2], '\ncurrent stock: ', item[3], "\n")
 
 
-def update_inventory():
-    with open("inventory.csv", "a", newline='') as myfile:
-        wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-        name = 'ps4'
-        replacement_value = 400
-        deposit_value = 40
-        price = 3
-        quanity = 20
-        wr.writerow([name, replacement_value, deposit_value, price, quanity])
+def update_inventory(name, quantity):
+    Item_obj_l = []
+    inv = get_inv('inventory.csv')
+    for i in inv:
+        Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
+    for i in Item_obj_l:
+        if i.name == name:
+           i.quantity = quantity
+    for i in Item_obj_l:
+        print("\n" + str(i))
+        
 
 
 # with open('inventory.csv', newline='') as inv:
@@ -49,6 +51,5 @@ def update_inventory():
 #         l = list(inventory)
 #         print(l[0][0].split(",")[0])
    
-
 
 
