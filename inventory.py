@@ -49,6 +49,9 @@ def update_inventory(name, quantity):
    
 
 
+   
+
+
 # with open('inventory.csv', newline='') as inv:
 #         inventory = csv.reader(inv, delimiter=' ', quotechar='|')
 #         l = list(inventory)

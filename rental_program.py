@@ -25,7 +25,8 @@ def rent():
     print("Conform you purchase for\n", str(Customer_choice))
     confirmation = input('y/n')
     if confirmation == "y":
-        print("item will be updated in inventory")
+        update_inventory(Customer_choice.name, int(Customer_choice.quantity)- 1)
+        # update_inventory(Customer_choice, Customer_choice.quantity)
         restart()
     elif confirmation == "n":
         restart()
@@ -56,13 +57,15 @@ def return_item():
     item = input("\nWhat item are you returning\n")
     returning_item = get_item_by_name(get_inv('inventory.csv'), item)
     hours = input("How many hours was the product rented? ")
-    item_status = input("Is the product broken or damaged")
+    item_status = input("Is the product broken or damaged y/n? ")
     if item_status == "y":
         print("Your deposit will not be returned you owe the following:"+ str(returning_item.replacement_value) +" dollars for replacement of the item. and "+ str(int(returning_item.price) * int(hours)) + " for rent.")
-    elif item_status == 'no':
+    elif item_status == 'n':
         print("Your deposit will be returned you owe the following: "+ str(int(returning_item.price) * int(hours)) + " for rent.")
+        update_inventory(returning_item.name, int(returning_item.quantity)+1)
+        restart()
     else: 
-        print('invalid input')
+        print('\nInvalid Input\n')
         return_item()
 
 def start():
