@@ -34,16 +34,19 @@ def view_inv(inventory_list):
 
 
 def update_inventory(name, quantity):
-    Item_obj_l = []
-    inv = get_inv('inventory.csv')
-    for i in inv:
-        Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
-    for i in Item_obj_l:
-        if i.name == name:
-           i.quantity = quantity
-    for i in Item_obj_l:
-        print("\n" + str(i))
-        
+        Item_obj_l = []
+        inv = get_inv('inventory.csv')
+        for i in inv:
+            Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
+        for i in Item_obj_l:
+            if i.name == name:
+                i.quantity = quantity
+        file = open('inventory.csv', 'w')
+        writer = csv.writer(file, delimiter=',')
+        for i in Item_obj_l:
+            writer.writerow([i.name, i.replacement_value, i.deposit_value, i.price, i.quantity]) 
+        file.close()
+   
 
 
 # with open('inventory.csv', newline='') as inv:
