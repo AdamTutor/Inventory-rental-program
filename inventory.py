@@ -23,14 +23,15 @@ def get_item_by_name(inventory_list, name):
     for i in inventory_list:
         # Checks if the name of a Item object is = to the name paramater
             customer_item = Item(i[0], i[1], i[2], i[3], i[4])
-            return customer_item
+            if customer_item.name == name:
+                return customer_item
 
 def view_trans(trans_list):
     """(list(list), str) --> (Item)
     Searches for item in inventory by name and converts item in to Item object."""
     transaction = ''
     for transaction in trans_list:
-        print("\nDatetime: " + transaction[0], "\nItem:", transaction[1], "\nstatus", transaction[2])
+        print("\nDatetime: " + transaction[0], "\nItem:", transaction[1], "\nstatus", transaction[2],"\n")
         
 
 def view_inv(inventory_list):
@@ -44,18 +45,18 @@ def update_inventory(name, quantity):
     """ (str, int) --> none
     takes in a name as a str and a quantity as a integer. Searches Inventory file for a item where that item's name matches the parameter. The item with that
     name is has its quantity overwritten and the new data is rewritten over inventory file. """
-        Item_obj_l = []
-        inv =  get_file_contents('inventory.csv')
-        for i in inv:
-            Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
-        for i in Item_obj_l:
-            if i.name == name:
-                i.quantity = quantity
-        file = open('inventory.csv', 'w')
-        writer = csv.writer(file, delimiter=',')
-        for i in Item_obj_l:
-            writer.writerow([i.name, i.replacement_value, i.deposit_value, i.price, i.quantity]) 
-        file.close()
+    Item_obj_l = []
+    inv =  get_file_contents('inventory.csv')
+    for i in inv:
+        Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
+    for i in Item_obj_l:
+        if i.name == name:
+            i.quantity = quantity
+    file = open('inventory.csv', 'w')
+    writer = csv.writer(file, delimiter=',')
+    for i in Item_obj_l:
+        writer.writerow([i.name, i.replacement_value, i.deposit_value, i.price, i.quantity]) 
+    file.close()
 
 def update_transaction(date, item, status):
     """ (Datetime, Item_obj, str) --> none
