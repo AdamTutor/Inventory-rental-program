@@ -35,6 +35,7 @@ def rent():
         restart()
 
 
+
 def restart():
     choice = input("k to keep shopping, s to start over, q to quit ?\n")
     if choice == "k":
@@ -73,8 +74,11 @@ def start():
     action = input('c or m\n').strip().lower()
     if action == "c":
         customer()
-    if action == "m":
+    elif action == "m":
         manager()
+    else:
+        print("\nINVALID INPUT\n")
+        start()
     
 def manager():
         print("s to restart")
