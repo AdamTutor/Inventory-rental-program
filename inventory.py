@@ -82,18 +82,38 @@ def update_revenue(rent, sales_tax):
 
 
 
+def update_deposits(deposit):
+    """ (int) --> none
+ Takes in the deposit amount from a sale and writes it to a file"""
+    with open('deposit.csv','a',newline='') as f:
+        writer=csv.writer(f)
+        writer.writerow([deposit])
+    with open('deposit.csv') as f:
+        print(f.read())
 
 
 
 
 def view_revenue():
     revenue_list = []
+    tax_list = []
+    deposits_list = []
     rev = get_file_contents('revenue.csv')
     for i in rev:
         revenue_list.append(int(i[0]))
+        tax_list.append(float(i[1]))
         total = sum(revenue_list)
-    print(total)
-
+        tax = sum(tax_list)
+        final_total = total + tax
+    deposits = get_file_contents('deposit.csv')
+    for deposit in deposits:
+        deposits_list.append(int(deposit[0]))
+    deposit_total = sum(deposits_list)
+    print("All current pending deposits: ", deposit_total)
+    print("total w/o tax:" , total)
+    print("sales tax: " , tax)
+    print("total: ", final_total)
+    
 
        
 

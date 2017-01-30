@@ -28,6 +28,7 @@ def rent():
     if confirmation == "y":
         update_inventory(Customer_choice.name, int(Customer_choice.quantity)- 1)
         update_transaction(datetime.datetime.now(), Customer_choice.name, "pending")
+        update_deposits(Customer_choice.deposit_value)
         # update_inventory(Customer_choice, Customer_choice.quantity)
         restart()
     elif confirmation == "n":
