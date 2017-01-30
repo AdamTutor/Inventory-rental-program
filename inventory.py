@@ -66,6 +66,35 @@ def update_transaction(date, item, status):
         writer.writerow([date,item, status])
     with open('transaction.csv') as f:
         print(f.read())
+
+
+
+
+def update_revenue(rent, sales_tax):
+    """ (int, int) --> none
+ Takes in the amoutn a person paid on rent plus the taxes of that sale"""
+    with open('revenue.csv','a',newline='') as f:
+        writer=csv.writer(f)
+        writer.writerow([rent,sales_tax])
+    with open('revenue.csv') as f:
+        print(f.read())
+
+
+
+
+
+
+
+
+def view_revenue():
+    revenue_list = []
+    rev = get_file_contents('revenue.csv')
+    for i in rev:
+        revenue_list.append(int(i[0]))
+        total = sum(revenue_list)
+    print(total)
+
+
        
 
 

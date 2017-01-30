@@ -66,6 +66,9 @@ def return_item():
     elif item_status == 'n':
         print("Your deposit will be returned you owe the following: "+ str(int(returning_item.price) * int(hours)) + " for rent.")
         update_inventory(returning_item.name, int(returning_item.quantity)+1)
+        rent = int(returning_item.price) * int(hours)
+        sales_tax = rent * 0.07
+        update_revenue(rent, sales_tax)
         restart()
     else: 
         print('\nInvalid Input\n')
@@ -84,8 +87,8 @@ def start():
     
 def manager():
         print("s to restart")
-        print("Would you like to view current inventory or transaction history?")
-        choice = input("i/t? \n").strip().lower()
+        print("Would you like to view current inventory , transaction history or revenue?")
+        choice = input("i/t/r? \n").strip().lower()
         if choice == "i":
             inv =  get_file_contents('inventory.csv')
             view_inv(inv)
@@ -93,6 +96,10 @@ def manager():
         elif choice == "t":
             trans = get_file_contents('transaction.csv')
             view_trans(trans)
+            manager()
+        elif choice == "r":
+            trans = get_file_contents('revenue.csv')
+            view_revenue()
             manager()
         elif choice == "s":
             start()

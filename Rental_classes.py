@@ -6,6 +6,7 @@ class Item():
         replacement value: A interger that represents the cost to replace the item if it was to be returned broken or damaged. 
         deposit value: A integer value representing 10 percent of the replacement value. 
         price: a integer value represents the cost of the item's rent
+    
         quantity: a integer value representing how many of the item is in stock. """
 
 
@@ -29,16 +30,18 @@ class Item():
 
 
 
-
 class Transaction():
     """A Transaction object that represents a transaction that has been made. 
 
     Attributes:
         Datetime: A Datetime representing the time the transaction was written to the transaction.csv file. 
         Item: Represens a Item object created from data pulled from inventory.csv
-        status: A integer value representing 10 percent of the replacement value. 
-         """
-def __init__(self, Datetime, Item, status):
-    self.Datetime = Datetime
-    self.Item = Item
-    self.status = status
+        status: A integer value representing 10 percent of the replacement value. """
+    def __init__(self, Datetime, Item, status):
+        self.Datetime = Datetime
+        self.Item = Item
+        self.status = status
+        
+        
+    def __str__(self):
+        return "date: " + str(self.Datetime) + " Item " + str(self.Item) + " status " + self.status
