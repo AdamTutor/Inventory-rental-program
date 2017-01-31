@@ -26,10 +26,12 @@ def get_item_by_name(inventory_list, name):
             if customer_item.name == name:
                 return customer_item
 
+
 def view_trans(trans_list):
-    """(list(list), str) --> (Item)
-    Searches for item in inventory by name and converts item in to Item object."""
-    transaction = ''
+    """(list) --> None
+    Takes in a list of data representing transactions and displays them in a human readable format. 
+    """
+    # Pulls transaction data from a list of lists and prints it
     for transaction in trans_list:
         print("\nDatetime: " + transaction[0], "\nItem:", transaction[1], "\nstatus", transaction[2],"\n")
         
@@ -37,6 +39,7 @@ def view_trans(trans_list):
 def view_inv(inventory_list):
     """ (list) --> none
     Takes in a list of Items and prints all attribues out for each Item in the list"""
+    # Pulls inventory data from a list of lists and prints it
     for item in inventory_list:
         print('\nProduct: ' + item[0], '\ndeposit: ' ,item[1], "\nprice per hour: ",item[2], '\ncurrent stock: ', item[3], "\n")
 
@@ -46,48 +49,56 @@ def update_inventory(name, quantity):
     takes in a name as a str and a quantity as a integer. Searches Inventory file for a item where that item's name matches the parameter. The item with that
     name is has its quantity overwritten and the new data is rewritten over inventory file. """
     Item_obj_l = []
+    # fetches all inventory items and stores them in 'inv'
     inv =  get_file_contents('inventory.csv')
+    # creates a Item objects from all items in 'inv'
     for i in inv:
         Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
+    # sets the object's quantity as the parameter quantity where the object name is the smae as the parameter name
     for i in Item_obj_l:
         if i.name == name:
             i.quantity = quantity
+    # opens and clears the inventory file
     file = open('inventory.csv', 'w')
     writer = csv.writer(file, delimiter=',')
+    # rewrites the existing data along with the updated quanitity on Item Obj. 
     for i in Item_obj_l:
         writer.writerow([i.name, i.replacement_value, i.deposit_value, i.price, i.quantity]) 
     file.close()
 
+
 def update_transaction(date, item, status):
     """ (Datetime, Item_obj, str) --> none
     Takes in a datetime, Item object and status. That data is appended to transaction.csv file"""
+    # opens transaction file in append mode and appends the new transaction
     with open('transaction.csv','a',newline='') as f:
         writer=csv.writer(f)
         writer.writerow([date,item, status])
+    # displays file contents after its been updated
     with open('transaction.csv') as f:
         print(f.read())
 
 
-
-
 def update_revenue(rent, sales_tax):
     """ (int, int) --> none
- Takes in the amoutn a person paid on rent plus the taxes of that sale"""
+ Takes in the amount a person paid on rent plus the taxes of that sale"""
+ # opens revenue file in append mode and appends new deposit to file
     with open('revenue.csv','a',newline='') as f:
         writer=csv.writer(f)
         writer.writerow([rent,sales_tax])
+    # displays current revenue file when file is updated
     with open('revenue.csv') as f:
         print(f.read())
-
-
 
 
 def update_deposits(deposit):
     """ (int) --> none
  Takes in the deposit amount from a sale and writes it to a file"""
+# opens deposits file in append mode and appends new deposit to file
     with open('deposit.csv','a',newline='') as f:
         writer=csv.writer(f)
         writer.writerow([deposit])
+# displays current revenue file when file is updated
     with open('deposit.csv') as f:
         print(f.read())
 
@@ -95,10 +106,13 @@ def update_deposits(deposit):
 
 
 def view_revenue():
+    "Reads all files pertaining to income and money loss or gain and displays them in a human readable format"
     revenue_list = []
     tax_list = []
     deposits_list = []
     rev = get_file_contents('revenue.csv')
+    # Pulls data from files and stores them in lists. Gets the sum
+    #  of those lists to do calculations for sales tax and total profit
     for i in rev:
         revenue_list.append(int(i[0]))
         tax_list.append(float(i[1]))
@@ -106,6 +120,7 @@ def view_revenue():
         tax = sum(tax_list)
         final_total = total + tax
     deposits = get_file_contents('deposit.csv')
+    # Reads deposit fle and collects total deposits
     for deposit in deposits:
         deposits_list.append(int(deposit[0]))
     deposit_total = sum(deposits_list)
