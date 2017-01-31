@@ -1,7 +1,9 @@
 from Rental_classes import * 
 import pytest
-
-
+import os
+import datetime
+import csv
+from inventory import *
 
 
 
@@ -22,4 +24,29 @@ class Test_Item():
          assert a.in_stock() == False
 
 
-  
+
+class Test_Transaction():
+    def test_class_Transaction(self):
+        T = Transaction(71017, 'ps4', 'pending')
+        assert T.Datetime == 71017
+        assert T.Item == 'ps4'
+        assert T.status == 'pending'
+
+
+def test_get_file_contents():
+    with open("test.csv", 'w') as t:
+         writer=csv.writer(t)
+         writer.writerow(['TEST','Test', 'test'])
+    Test_inventory = get_file_contents('test.csv')
+    assert Test_inventory[0][0] == 'TEST'
+    assert Test_inventory[0][1] == 'Test'
+    assert Test_inventory[0][2] == 'test'
+    os.remove('test.csv')
+
+
+
+
+    
+
+    
+    
