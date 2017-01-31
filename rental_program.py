@@ -1,10 +1,14 @@
+
+"""
+This module contains all functions that make up the rental program. 
+Each function represents a different choice in the program. The first function start() calles the first input in the
+program and your choice will call the next part of the program. The program is mutually recursive. 
+"""
+
+
+
 from inventory import *
 import datetime
-
-
-
-
-
 
 
 def customer():
@@ -14,6 +18,10 @@ def customer():
         rent()
     elif a == "return":
         return_item()
+    else:
+        print("\nINVALID INPUT\n")
+        print('did you mean rent or return? ')
+        customer()
     
 
 def rent():
@@ -26,17 +34,15 @@ def rent():
     print("Conform you purchase for\n", str(Customer_choice))
     confirmation = input('y/n')
     if confirmation == "y":
-        update_inventory(Customer_choice.name, int(Customer_choice.quantity)- 1)
+        update_inventory(Customer_choice.name, int(Customer_choice.quantity)- 1, 'inventory.csv')
         update_transaction(datetime.datetime.now(), Customer_choice.name, "pending")
-        update_deposits(Customer_choice.deposit_value)
-        # update_inventory(Customer_choice, Customer_choice.quantity)
+        update_deposits(Customer_choice.deposit_value, 'deposits.csv')
         restart()
     elif confirmation == "n":
         restart()
     else: 
         print('invalid entry')
         restart()
-
 
 
 def restart():
@@ -52,8 +58,6 @@ def restart():
         restart()
 
 
-
-
 def return_item():
     inv =  get_file_contents('inventory.csv')
     for item in inv:
@@ -66,19 +70,21 @@ def return_item():
         print("Your deposit will not be returned you owe the following:"+ str(returning_item.replacement_value) +" dollars for replacement of the item. and "+ str(int(returning_item.price) * int(hours)) + " for rent.")
         rent = int(returning_item.price) * int(hours)
         sales_tax = rent * 0.07
-        update_revenue(rent, sales_tax)
+        update_revenue(rent, sales_tax, 'revenue.csv')
         update_transaction(datetime.datetime.now(), returning_item.name, "compensated")
+        restart()
     elif item_status == 'n':
         print("Your deposit will be returned you owe the following: "+ str(int(returning_item.price) * int(hours)) + " for rent.")
-        update_inventory(returning_item.name, int(returning_item.quantity)+1)
+        update_inventory(returning_item.name, int(returning_item.quantity)+1, 'inventory.csv')
         rent = int(returning_item.price) * int(hours)
         sales_tax = rent * 0.07
-        update_revenue(rent, sales_tax)
+        update_revenue(rent, sales_tax, 'revenue.csv')
         update_transaction(datetime.datetime.now(), returning_item.name, "returned")
         restart()
     else: 
         print('\nInvalid Input\n')
         return_item()
+
 
 def start():
     print('Are you wanting to do a customer or manager action')
@@ -91,6 +97,7 @@ def start():
         print("\nINVALID INPUT\n")
         start()
     
+
 def manager():
         print("s to restart")
         print("Would you like to view current inventory , transaction history or revenue?")
@@ -109,49 +116,4 @@ def manager():
             manager()
         elif choice == "s":
             start()
-
-
-    
-    
 start()
-    
-    
-        # print("Are you renting or returning an item? ")
-        # a = input('rent or return? \n').strip().lower()
-        # if a == "rent":enumerate
-        #     inv =  get_file_contents('inventory.csv')
-        #     view_inv(inv)
-        #     item = input("What will you be renting? Product name: ").strip().lower()
-        #     a = get_item_by_name( get_file_contents('inventory.csv'), item)
-        #     print("You must place a deposit of" ,a.deposit_value," dollars along with a fee of" ,a.price,  " dollars every hour the item is rented. Deposits are refunded upon return.\n")
-        #     print("Conform you purchase for\n", str(a))
-        #     input('y/n')
-
-
-
-
-
-
-
-
-
-
-
-
-        # elif a == "return":
-        #     ...
-        # else:
-        #     ...
-        
-     
-    # elif action == "m":
-     
-    #     print('m')
-    # else:
-    #     print("invalid input")
-    #     start()
-
-
-
-
-
