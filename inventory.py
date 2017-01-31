@@ -122,5 +122,3 @@ def view_revenue():
 
 
 
-
-

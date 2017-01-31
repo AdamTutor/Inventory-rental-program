@@ -64,12 +64,17 @@ def return_item():
     item_status = input("Is the product broken or damaged y/n? ")
     if item_status == "y":
         print("Your deposit will not be returned you owe the following:"+ str(returning_item.replacement_value) +" dollars for replacement of the item. and "+ str(int(returning_item.price) * int(hours)) + " for rent.")
+        rent = int(returning_item.price) * int(hours)
+        sales_tax = rent * 0.07
+        update_revenue(rent, sales_tax)
+        update_transaction(datetime.datetime.now(), returning_item.name, "compensated")
     elif item_status == 'n':
         print("Your deposit will be returned you owe the following: "+ str(int(returning_item.price) * int(hours)) + " for rent.")
         update_inventory(returning_item.name, int(returning_item.quantity)+1)
         rent = int(returning_item.price) * int(hours)
         sales_tax = rent * 0.07
         update_revenue(rent, sales_tax)
+        update_transaction(datetime.datetime.now(), returning_item.name, "returned")
         restart()
     else: 
         print('\nInvalid Input\n')
