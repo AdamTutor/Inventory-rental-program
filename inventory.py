@@ -6,7 +6,7 @@ def get_file_contents(filename):
     """ (file_obj) --> (list)
     Takes in a csv file as a parameter and reads 
     the file and outputs a cvs.reader object that is converted to a list of lists."""
-    content_list = []
+
     with open(filename, newline='') as inv:
     #csv.reader(file to be read, singe character to seperate feilds, A one-character string used to quote fields containing special characters)
         content = csv.reader(inv, delimiter=',', quotechar='|')
@@ -41,16 +41,16 @@ def view_inv(inventory_list):
     Takes in a list of Items and prints all attribues out for each Item in the list"""
     # Pulls inventory data from a list of lists and prints it
     for item in inventory_list:
-        print('\nProduct: ' + item[0], '\ndeposit: ' ,item[1], "\nprice per hour: ",item[2], '\ncurrent stock: ', item[3], "\n")
+        print('\nProduct: ' + item[0], '\nreplacement value: ', item[1], '\ndeposit: ' ,item[2], "\nprice per hour: ",item[3], '\ncurrent stock: ', item[4], "\n")
 
 
-def update_inventory(name, quantity):
+def update_inventory(name, quantity, filename):
     """ (str, int) --> none
     takes in a name as a str and a quantity as a integer. Searches Inventory file for a item where that item's name matches the parameter. The item with that
     name is has its quantity overwritten and the new data is rewritten over inventory file. """
     Item_obj_l = []
     # fetches all inventory items and stores them in 'inv'
-    inv =  get_file_contents('inventory.csv')
+    inv =  get_file_contents(filename)
     # creates a Item objects from all items in 'inv'
     for i in inv:
         Item_obj_l.append(Item(i[0],i[1],i[2],i[3],i[4]))
@@ -59,12 +59,16 @@ def update_inventory(name, quantity):
         if i.name == name:
             i.quantity = quantity
     # opens and clears the inventory file
-    file = open('inventory.csv', 'w')
+    file = open(filename, 'w')
     writer = csv.writer(file, delimiter=',')
     # rewrites the existing data along with the updated quanitity on Item Obj. 
     for i in Item_obj_l:
         writer.writerow([i.name, i.replacement_value, i.deposit_value, i.price, i.quantity]) 
     file.close()
+    with open(filename) as f:
+        t = f.read()
+        if len(t) == 0:
+            return True
 
 
 def update_transaction(date, item, status):
@@ -79,19 +83,21 @@ def update_transaction(date, item, status):
         print(f.read())
 
 
-def update_revenue(rent, sales_tax):
+def update_revenue(rent, sales_tax, filename):
     """ (int, int) --> none
  Takes in the amount a person paid on rent plus the taxes of that sale"""
  # opens revenue file in append mode and appends new deposit to file
-    with open('revenue.csv','a',newline='') as f:
+    with open(filename,'a',newline='') as f:
         writer=csv.writer(f)
         writer.writerow([rent,sales_tax])
     # displays current revenue file when file is updated
-    with open('revenue.csv') as f:
-        print(f.read())
+    with open(filename) as f:
+        t = f.read()
+        if len(t) > 0:
+            return True
 
 
-def update_deposits(deposit):
+def update_deposits(deposit, filename):
     """ (int) --> none
  Takes in the deposit amount from a sale and writes it to a file"""
 # opens deposits file in append mode and appends new deposit to file
@@ -100,9 +106,9 @@ def update_deposits(deposit):
         writer.writerow([deposit])
 # displays current revenue file when file is updated
     with open('deposit.csv') as f:
-        print(f.read())
-
-
+        t = f.read()
+        if len(t) > 0:
+            return True
 
 
 def view_revenue():
