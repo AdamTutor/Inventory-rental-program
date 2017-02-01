@@ -6,7 +6,6 @@ program and your choice will call the next part of the program. The program is m
 """
 
 
-
 from inventory import *
 import datetime
 
@@ -37,8 +36,8 @@ def rent():
     confirmation = input('y/n')
     if confirmation == "y":
         update_inventory(customer_choice.name, int(customer_choice.quantity)- 1, 'inventory.csv')
-        update_transaction(datetime.datetime.now(), customer_choice.name, "pending")
-        update_deposits(customer_choice.deposit_value, 'deposits.csv')
+        update_transaction(datetime.datetime.now(), customer_choice.name, "pending", 'transaction.csv')
+        update_deposits(customer_choice.deposit_value, 'deposit.csv')
         restart()
     elif confirmation == "n":
         restart()
@@ -75,7 +74,7 @@ def return_item():
         rent_amount = int(returning_item.price) * int(hours)
         sales_tax = rent_amount * 0.07
         update_revenue(rent_amount, sales_tax, 'revenue.csv')
-        update_transaction(datetime.datetime.now(), returning_item.name, "compensated")
+        update_transaction(datetime.datetime.now(), returning_item.name, "compensated",'transaction.csv')
         restart()
     elif item_status == 'n':
         print("Your deposit will be returned you owe the following: "+ \
@@ -85,7 +84,7 @@ def return_item():
         rent_amount = int(returning_item.price) * int(hours)
         sales_tax = rent_amount * 0.07
         update_revenue(rent_amount, sales_tax, 'revenue.csv')
-        update_transaction(datetime.datetime.now(), returning_item.name, "returned")
+        update_transaction(datetime.datetime.now(), returning_item.name, "returned", 'transaction.csv')
         restart()
     else:
         print('\nInvalid Input\n')

@@ -76,37 +76,24 @@ def update_inventory(name, quantity, filename):
             return True
 
 
-def update_transaction(date, item, status):
+def update_transaction(date, item, status, filename):
     """ (Datetime, Item_obj, str) --> none
     Takes in a datetime, Item object and status. That data is appended to transaction.csv file"""
-    # opens transaction file in append mode and appends the new transaction
-    with open('transaction.csv', 'a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([date, item, status])
-    # displays file contents after its been updated
-    with open('transaction.csv') as file:
-        print(file.read())
+    return write_row(filename, [date, item, status])
 
 
 def update_revenue(rent, sales_tax, filename):
     """ (int, int) --> none
  Takes in the amount a person paid on rent plus the taxes of that sale"""
  # opens revenue file in append mode and appends new deposit to file
-    with open(filename, 'a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([rent, sales_tax])
-    # displays current revenue file when file is updated
-    with open(filename) as file:
-        revenue = file.read()
-        if len(revenue) > 0:
-            return True
+    return write_row(filename, [rent, sales_tax])
 
 def write_row(filename, values_to_write):
     """ (file, list) --> None
-    Takes in a filename and list of data to be written in a row on the file. 
+    Takes in a filename and list of data to be written in a row on the file.
     """
     with open(filename, 'a', newline='') as file:
-        writer = csv.writer(file):
+        writer = csv.writer(file)
         writer.writerow(values_to_write)
     with open(filename) as file:
         content = file.read()
@@ -117,15 +104,7 @@ def write_row(filename, values_to_write):
 def update_deposits(deposit, filename):
     """ (int) --> none
  Takes in the deposit amount from a sale and writes it to a file"""
-# opens deposits file in append mode and appends new deposit to file
-    with open('deposit.csv', 'a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([deposit])
-# displays current revenue file when file is updated
-    with open('deposit.csv') as file:
-        deposits = file.read()
-        if len(deposits) > 0:
-            return True
+    return write_row(filename, [deposit])
 
 
 def view_revenue():
