@@ -42,10 +42,11 @@ def view_inv(inventory_list):
     """ (list) --> none
     Takes in a list of Items and prints all attribues out for each Item in the list"""
     # Pulls inventory data from a list of lists and prints it
+    inventory_string = ''
     for item in inventory_list:
-        print('\nProduct: ' + item[0], '\nreplacement value: ', item[1], '\ndeposit: ',\
-                     item[2], "\nprice per hour: ", item[3], '\ncurrent stock: ', item[4], "\n")
-
+        inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ str(item[1])+ '\ndeposit: '+\
+                     str(item[2])+ "\nprice per hour: "+ str(item[3])+ '\ncurrent stock: '+ str(item[4])+ "\n")
+    return inventory_string
 
 def update_inventory(name, quantity, filename):
     """ (str, int) --> none
@@ -107,13 +108,13 @@ def update_deposits(deposit, filename):
     return write_row(filename, [deposit])
 
 
-def view_revenue():
+def view_revenue(file1, file2):
     """Reads all files pertaining to income and money loss or
      gain and displays them in a human readable format"""
     revenue_list = []
     tax_list = []
     deposits_list = []
-    rev = get_file_contents('revenue.csv')
+    rev = get_file_contents(file1)
     # Pulls data from files and stores them in lists. Gets the sum
     #  of those lists to do calculations for sales tax and total profit
     for i in rev:
@@ -122,17 +123,14 @@ def view_revenue():
         total = sum(revenue_list)
         tax = sum(tax_list)
         final_total = total + tax
-    deposits = get_file_contents('deposit.csv')
+    deposits = get_file_contents(file2)
     # Reads deposit fle and collects total deposits
     for deposit in deposits:
         deposits_list.append(int(deposit[0]))
     deposit_total = sum(deposits_list)
-    print("All current pending deposits: ", deposit_total)
-    print("total w/o tax:", total)
-    print("sales tax: ", tax)
-    print("total: ", final_total)
-
-
+    return "All current pending deposits: ", deposit_total, "total w/o tax:",\
+     total, "sales tax: ", tax, "total: ", final_total
+ 
 
 
 
