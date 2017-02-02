@@ -2,6 +2,9 @@ import csv
 from Rental_classes import *
 
 
+
+
+#IS TESTED#
 def get_file_contents(filename):
     """ (file_obj) --> (list)
     Takes in a csv file as a parameter and reads
@@ -14,7 +17,7 @@ def get_file_contents(filename):
         # returns list of lists from reader object.
         return list(content)
 
-
+#IS TESTED# 
 def get_item_by_name(inventory_list, name):
     """ (list(list), str) --> (Item)
     Searches for item in inventory by name and converts item in to Item object.
@@ -69,7 +72,7 @@ def update_inventory(name, quantity, filename):
     writer = csv.writer(file, delimiter=',')
     # rewrites the existing data along with the updated quanitity on Item Obj.
     for i in Item_obj_l:
-        writer.writerow([i.name, i.replacement_value, i.deposit_value, i.price, i.quantity])
+        writer.writerow([[i.name, i.replacement_value, i.deposit_value, i.price, i.quantity]])
     file.close()
     with open(filename) as file:
         inv = file.read()
@@ -80,14 +83,26 @@ def update_inventory(name, quantity, filename):
 def update_transaction(date, item, status, filename):
     """ (Datetime, Item_obj, str) --> none
     Takes in a datetime, Item object and status. That data is appended to transaction.csv file"""
-    return write_row(filename, [date, item, status])
+    return write_row(filename, [[date, item, status]])
 
 
 def update_revenue(rent, sales_tax, filename):
     """ (int, int) --> none
  Takes in the amount a person paid on rent plus the taxes of that sale"""
  # opens revenue file in append mode and appends new deposit to file
-    return write_row(filename, [rent, sales_tax])
+    return write_row(filename, [[rent, sales_tax]])
+
+# def write_row(filename, values_to_write):
+#     """ (file, list) --> None
+#     Takes in a filename and list of data to be written in a row on the file.
+#     """
+#     with open(filename, 'a', newline='') as file:
+#         writer = csv.writer(file)
+#         writer.writerow(values_to_write)
+#     with open(filename) as file:
+#         content = file.read()
+#         if len(content) > 0:
+#             return True
 
 def write_row(filename, values_to_write):
     """ (file, list) --> None
@@ -95,7 +110,8 @@ def write_row(filename, values_to_write):
     """
     with open(filename, 'a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(values_to_write)
+        for row in values_to_write:
+            writer.writerow(row)
     with open(filename) as file:
         content = file.read()
         if len(content) > 0:
@@ -105,7 +121,7 @@ def write_row(filename, values_to_write):
 def update_deposits(deposit, filename):
     """ (int) --> none
  Takes in the deposit amount from a sale and writes it to a file"""
-    return write_row(filename, [deposit])
+    return write_row(filename, [[deposit]])
 
 
 def view_revenue(file1, file2):
@@ -130,9 +146,3 @@ def view_revenue(file1, file2):
     deposit_total = sum(deposits_list)
     return "All current pending deposits: ", deposit_total, "total w/o tax:",\
      total, "sales tax: ", tax, "total: ", final_total
- 
-
-
-
-
-
