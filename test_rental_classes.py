@@ -16,6 +16,9 @@ class Test_Item():
         assert i.deposit_value == 40
         assert i.price == 3
         assert i.quantity == 20
+        assert str(i) ==  "product: " + 'ps4' + "\nreplacement value: " + '400'+\
+              "\nDeposit value: " + '40'+ "\nprice: " + \
+                '3'+ "\nquantity: " + '20'
 
     def test_in_stock(self):
          a = Item('ps4', 400, 40, 3,0)
@@ -28,9 +31,10 @@ class Test_Item():
 class Test_Transaction():
     def test_class_Transaction(self):
         T = Transaction(71017, 'ps4', 'pending')
-        assert T.Datetime == 71017
-        assert T.Item == 'ps4'
+        assert T.datetime == 71017
+        assert T.item == 'ps4'
         assert T.status == 'pending'
+        assert str(T) == "date: " + '71017' + " Item " + 'ps4' + " status " + 'pending'
 
 
 def test_get_file_contents():
