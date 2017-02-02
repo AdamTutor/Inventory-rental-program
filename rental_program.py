@@ -109,7 +109,7 @@ def manager():
     choice = input("i/t/r? \n").strip().lower()
     if choice == "i":
         inv = get_file_contents('inventory.csv')
-        view_inv(inv)
+        print(view_inv(inv))
         manager()
     elif choice == "t":
         trans = get_file_contents('transaction.csv')
