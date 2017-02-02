@@ -5,6 +5,26 @@ import datetime
 import csv
 from inventory import *
 
+# Helper functions for mocking up files needed to test
+def write_row(filename, values_to_write):
+    """ (file, list) --> None
+    Takes in a filename and list of data to be written in a row on the file.
+    """
+    with open(filename, 'a', newline='') as file:
+        writer = csv.writer(file)
+        for row in values_to_write:
+            writer.writerow(row)
+    with open(filename) as file:
+        content = file.read()
+        if len(content) > 0:
+            return True
+
+
+def create_file(filename):
+    "creates a file called test.csv"   
+    with open(filename, 'w') as tfile:
+        return tfile.close()
+
 
 
  # Testing all attributes for Test class
@@ -38,10 +58,8 @@ class Test_Transaction():
 
 
 def test_get_file_contents():
-    with open("test.csv", 'w') as t:
-        writer = csv.writer(t)
-        writer.writerow(['TEST','Test', 'test'])
-        t.close()
+    create_file('test.csv')
+    write_row('test.csv', [['TEST','Test', 'test']])
     Test_inventory = get_file_contents('test.csv')
     assert Test_inventory[0][0] == 'TEST'
     assert Test_inventory[0][1] == 'Test'
@@ -50,11 +68,8 @@ def test_get_file_contents():
 
 
 def test_get_item_by_name():
-    with open("test.csv", 'w') as t:
-        writer=csv.writer(t)
-        writer.writerow(['ps4', 400, 40, 3,20])
-        writer.writerow(['xbox1', 400, 40, 3,20])
-        writer.writerow(['TEST', 400, 40, 3,20])
+    create_file("test.csv")
+    write_row("test.csv", [['ps4', 400, 40, 3,20],['xbox1', 400, 40, 3,20],['TEST', 400, 40, 3,20]])
     test_inventory = get_file_contents('test.csv')
     name = get_item_by_name(test_inventory, 'ps4')
     t = get_item_by_name(test_inventory, 'xbox1')
@@ -66,13 +81,13 @@ def test_get_item_by_name():
  
 
 def test_update_inventory():
-    with open("test.csv", 'w') as f:
-        f.close()
+    create_file('test.csv')
     name = "name"
     quantity = 3
     filename = 'test.csv'
     x = update_inventory(name, quantity, filename)
     assert x == True
+    os.remove('test.csv')
 
 
 
@@ -106,6 +121,7 @@ def test_update_deposits():
     deposit = 20
     test = update_deposits(deposit, 'test.csv')
     assert test == True
+    os.remove('test.csv')
 
 
 def test_view_inv():
@@ -115,31 +131,16 @@ def test_view_inv():
                      '20'+ "\nprice per hour: "+ '20' + '\ncurrent stock: '+ '-18' + "\n")
 
 
-def test_view_revenue():
-    rev = [[999,69.93]]
-    file1 = 'revenue.csv'
-    file2 = 'deposit.csv'
-    test = view_revenue(file1, file2)
-    assert test == "All current pending deposits: ", deposit_total, "total w/o tax:",\
-     total, "sales tax: ", tax, "total: ", final_total
+# def test_view_revenue():
+#     rev = [[999,69.93]]
+#     file1 = 'revenue.csv'
+#     file2 = 'deposit.csv'
+#     test = view_revenue(file1, file2)
+#     assert test == "All current pending deposits: ", deposit_total, "total w/o tax:",\
+#      total, "sales tax: ", tax, "total: ", final_total
 
 
 
 
 
-def write_row(filename, values_to_write):
-    """ (file, list) --> None
-    Takes in a filename and list of data to be written in a row on the file.
-    """
-    with open(filename, 'a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(values_to_write)
-    with open(filename) as file:
-        content = file.read()
-        if len(content) > 0:
-            return True
-
-def create_test_file():
-    with open('test.csv', 'w') as tfile:
-        tfile.close()
 
