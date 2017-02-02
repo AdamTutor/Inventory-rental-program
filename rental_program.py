@@ -25,7 +25,7 @@ def customer():
 
 def rent():
     inv = get_file_contents('inventory.csv')
-    view_inv(inv)
+    print(view_inv(inv))
     item = input("What will you be renting? Product name: ").strip().lower()
     customer_choice = get_item_by_name(get_file_contents('inventory.csv'), item)
     print(customer_choice.deposit_value, customer_choice.price)
@@ -117,7 +117,8 @@ def manager():
         manager()
     elif choice == "r":
         trans = get_file_contents('revenue.csv')
-        view_revenue()
+        x = view_revenue('revenue.csv', 'deposit.csv')
+        print(x[0], x[1], "\n" + x[2], x[3], "\n" + x[4], x[5], "\n"+ x[6], x[7])
         manager()
     elif choice == "s":
         start()
