@@ -45,6 +45,7 @@ class Test_Transaction():
         assert trans.status == 'pending'
         assert str(trans) == "date: " + '71017' + " Item " + 'ps4' + " status " + 'pending'
 
+# Tests that create or read files
 def test_create_file():
     'Tests that create_file() function creates a empty file'
     create_file('test.csv')
@@ -74,52 +75,55 @@ def test_get_item_by_name():
     assert t.name == 'xbox1'
     assert test.name == 'TEST'
     os.remove("test.csv")
- 
 
+
+
+
+# Tests functions that update or change files
 def test_update_inventory():
     create_file('test.csv')
-    name = "name"
-    quantity = 3
+    write_row('test.csv', [['test', 0, 0, 0, 0]])
+    name = "test"
+    quantity = 3 -1
     filename = 'test.csv'
-    x = update_inventory(name, quantity, filename)
-    assert x == True
+    inv = update_inventory(name, quantity, filename)
+    assert inv == "test,0,0,0,2\n"
     os.remove('test.csv')
 
 
 
 def test_update_transaction():
+    create_file('test.csv')
     date = 'date'
     item = 'item'
     status = 'status'
-    with open('test.csv', 'a', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow([date, item, status])
-    with open('transaction.csv') as f:
-        test = f.read()
-        test[0] == 'date'
-        test[1] == 'item'
-        test[2] == 'status'
+    filename = 'test.csv'
+    trans = update_transaction(date, item, status, filename)
+    assert trans == 'date,item,status\n'
     os.remove('test.csv')
+
+    
 
 
 def test_update_revenue():
-    with open("test.csv", 'w') as f:
-        f.close()
+    create_file('test.csv')
     rent = '300'
     sales = '300'
     filename = 'test.csv'
     x = update_revenue(rent, sales, filename)
-    assert x == True
+    assert x == '300,300\n'
     os.remove("test.csv")
 
 
 def test_update_deposits():
     deposit = 20
     test = update_deposits(deposit, 'test.csv')
-    assert test == True
+    assert test == '20\n'
     os.remove('test.csv')
 
 
+
+#Test the display of files contents
 def test_view_inv():
     inv = [['ps4', '100', '20', '20','-18']]
     test = view_inv(inv)
@@ -134,13 +138,15 @@ def test_view_trans():
                                          "\nstatus" + 'pending' + "\n")
 
 
-# def test_view_revenue():
-#     rev = [[999,69.93]]
-#     file1 = 'revenue.csv'
-#     file2 = 'deposit.csv'
-#     test = view_revenue(file1, file2)
-#     assert test == "All current pending deposits: ", deposit_total, "total w/o tax:",\
-#      total, "sales tax: ", tax, "total: ", final_total
+def test_view_revenue():
+    create_file('test.csv')
+    write_row("test.csv", [[90000, 38.0]])
+    create_file('test2.csv')
+    write_row("test2.csv", [[20],[20],[20],[20]])
+    test = view_revenue('test.csv', 'test2.csv')
+    assert test == ('All current pending deposits: ', 80, 'total w/o tax:', 90000, 'sales tax: ', 38.0, 'total: ', 90038.0)
+    os.remove("test.csv")
+    os.remove("test2.csv")
 
 
 
