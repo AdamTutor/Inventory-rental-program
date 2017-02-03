@@ -54,6 +54,8 @@ def view_inv(inventory_list):
                                                      '\ncurrent stock: '+ str(item[4])+ "\n")
     return inventory_string
 
+
+#IS TESTED#
 def update_inventory(name, quantity, filename):
     """ (str, int) --> none
     takes in a name as a str and a quantity as a integer. Searches Inventory file
@@ -79,8 +81,7 @@ def update_inventory(name, quantity, filename):
     file.close()
     with open(filename) as file:
         inv = file.read()
-        if len(inv) == 0:
-            return True
+        return inv
 
 
 def update_transaction(date, item, status, filename):
@@ -107,8 +108,7 @@ def write_row(filename, values_to_write):
             writer.writerow(row)
     with open(filename) as file:
         content = file.read()
-        if len(content) > 0:
-            return True
+        return content
 
 
 def update_deposits(deposit, filename):
@@ -117,6 +117,7 @@ def update_deposits(deposit, filename):
     return write_row(filename, [[deposit]])
 
 
+#IS TESTED#
 def view_revenue(file1, file2):
     """Reads all files pertaining to income and money loss or
      gain and displays them in a human readable format"""

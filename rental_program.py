@@ -1,8 +1,8 @@
 
 """
-This module contains all functions that make up the rental program. 
+This module contains all functions that make up the rental program.
 Each function represents a different choice in the program. The first function start() calles the first input in the
-program and your choice will call the next part of the program. The program is mutually recursive. 
+program and your choice will call the next part of the program. The program is mutually recursive.
 """
 
 import datetime
