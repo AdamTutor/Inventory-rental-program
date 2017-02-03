@@ -131,6 +131,13 @@ def test_view_inv():
                      '20'+ "\nprice per hour: "+ '20' + '\ncurrent stock: '+ '-18' + "\n")
 
 
+def test_view_trans():
+    trans = [['2017-01-30 14:37:54.026520','xbox1','pending']]
+    test = view_trans(trans)
+    assert test == ("\nDatetime: " +'2017-01-30 14:37:54.026520' + "\nItem:" + 'xbox1' + \
+                                         "\nstatus" + 'pending' + "\n")
+
+
 # def test_view_revenue():
 #     rev = [[999,69.93]]
 #     file1 = 'revenue.csv'
