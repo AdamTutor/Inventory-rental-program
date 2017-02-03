@@ -30,7 +30,7 @@ def get_item_by_name(inventory_list, name):
         if customer_item.name == name:
             return customer_item
 
-
+#IS TESTED#
 def view_trans(trans_list):
     """(list) --> None
     Takes in a list of data representing transactions and displays them in a human readable format.
@@ -42,7 +42,7 @@ def view_trans(trans_list):
                                          "\nstatus" + str(transaction[2]) + "\n")
     return trans_string
 
-    #IS TESTED#
+ #IS TESTED#
 def view_inv(inventory_list):
     """ (list) --> none
     Takes in a list of Items and prints all attribues out for each Item in the list"""
@@ -75,7 +75,7 @@ def update_inventory(name, quantity, filename):
     writer = csv.writer(file, delimiter=',')
     # rewrites the existing data along with the updated quanitity on Item Obj.
     for i in Item_obj_l:
-        writer.writerow([[i.name, i.replacement_value, i.deposit_value, i.price, i.quantity]])
+        writer.writerow([i.name, i.replacement_value, i.deposit_value, i.price, i.quantity])
     file.close()
     with open(filename) as file:
         inv = file.read()
@@ -96,6 +96,7 @@ def update_revenue(rent, sales_tax, filename):
     return write_row(filename, [[rent, sales_tax]])
 
 
+#IS TESTED#
 def write_row(filename, values_to_write):
     """ (file, list) --> None
     Takes in a filename and list of data to be written in a row on the file.
