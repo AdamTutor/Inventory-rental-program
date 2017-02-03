@@ -1,3 +1,11 @@
+"""
+Contains the following classes: Item, Transaction.
+An Item represents a inventory item.
+Transaction represents the log recored when an Item is rented or returned
+"""
+
+
+
 class Item():
     """A Inventory object that represents a item in inventory.
 
