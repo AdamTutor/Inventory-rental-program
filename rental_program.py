@@ -5,12 +5,13 @@ Each function represents a different choice in the program. The first function s
 program and your choice will call the next part of the program. The program is mutually recursive. 
 """
 
-
-from inventory import *
 import datetime
+from inventory import *
+
 
 
 def customer():
+    "Determines all customer actions and takes inputs to complete them"
     print('Are you renting or returning an item? ')
     choice = input("rent or reutrn\n")
     if choice == "rent":
@@ -24,6 +25,7 @@ def customer():
 
 
 def rent():
+    "Input determines what itme is being rented"
     inv = get_file_contents('inventory.csv')
     print(view_inv(inv))
     item = input("What will you be renting? Product name: ").strip().lower()
@@ -47,6 +49,7 @@ def rent():
 
 
 def restart():
+    "Takes in user input to direct them to a different program section of their choice"
     choice = input("k to keep shopping, s to start over, q to quit ?\n")
     if choice == "k":
         rent()
@@ -60,6 +63,7 @@ def restart():
 
 
 def return_item():
+    "contains inputs to determine how to calculate revenue on returned items"
     inv = get_file_contents('inventory.csv')
     for item in inv:
         print("\n"+item[0])
@@ -74,7 +78,8 @@ def return_item():
         rent_amount = int(returning_item.price) * int(hours)
         sales_tax = rent_amount * 0.07
         update_revenue(rent_amount, sales_tax, 'revenue.csv')
-        update_transaction(datetime.datetime.now(), returning_item.name, "compensated",'transaction.csv')
+        update_transaction(datetime.datetime.now(), returning_item.name, \
+        "compensated", 'transaction.csv')
         restart()
     elif item_status == 'n':
         print("Your deposit will be returned you owe the following: "+ \
@@ -84,7 +89,8 @@ def return_item():
         rent_amount = int(returning_item.price) * int(hours)
         sales_tax = rent_amount * 0.07
         update_revenue(rent_amount, sales_tax, 'revenue.csv')
-        update_transaction(datetime.datetime.now(), returning_item.name, "returned", 'transaction.csv')
+        update_transaction(datetime.datetime.now(), returning_item.name, \
+        "returned", 'transaction.csv')
         restart()
     else:
         print('\nInvalid Input\n')
@@ -92,6 +98,7 @@ def return_item():
 
 
 def start():
+    "Initialized program start"
     print('Are you wanting to do a customer or manager action')
     action = input('c or m\n').strip().lower()
     if action == "c":
@@ -104,6 +111,7 @@ def start():
 
 
 def manager():
+    "Inputs for all manager actions"
     print("s to restart")
     print("Would you like to view current inventory , transaction history or revenue?")
     choice = input("i/t/r? \n").strip().lower()
@@ -113,12 +121,12 @@ def manager():
         manager()
     elif choice == "t":
         trans = get_file_contents('transaction.csv')
-        view_trans(trans)
+        print(view_trans(trans))
         manager()
     elif choice == "r":
         trans = get_file_contents('revenue.csv')
-        x = view_revenue('revenue.csv', 'deposit.csv')
-        print(x[0], x[1], "\n" + x[2], x[3], "\n" + x[4], x[5], "\n"+ x[6], x[7])
+        rev = view_revenue('revenue.csv', 'deposit.csv')
+        print(rev[0], rev[1], "\n" + rev[2], rev[3], "\n" + rev[4], rev[5], "\n"+ rev[6], rev[7])
         manager()
     elif choice == "s":
         start()
