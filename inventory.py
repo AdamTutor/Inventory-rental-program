@@ -17,7 +17,7 @@ def get_file_contents(filename):
         # returns list of lists from reader object.
         return list(content)
 
-#IS TESTED# 
+#IS TESTED#
 def get_item_by_name(inventory_list, name):
     """ (list(list), str) --> (Item)
     Searches for item in inventory by name and converts item in to Item object.
@@ -36,19 +36,22 @@ def view_trans(trans_list):
     Takes in a list of data representing transactions and displays them in a human readable format.
     """
     # Pulls transaction data from a list of lists and prints it
+    trans_string = ""
     for transaction in trans_list:
-        print("\nDatetime: " + transaction[0], "\nItem:", transaction[1],\
-                                         "\nstatus", transaction[2], "\n")
+        trans_string += ("\nDatetime: " + str(transaction[0]) + "\nItem:" + str(transaction[1]) + \
+                                         "\nstatus" + str(transaction[2]) + "\n")
+    return trans_string
 
-
+    #IS TESTED#
 def view_inv(inventory_list):
     """ (list) --> none
     Takes in a list of Items and prints all attribues out for each Item in the list"""
     # Pulls inventory data from a list of lists and prints it
     inventory_string = ''
     for item in inventory_list:
-        inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ str(item[1])+ '\ndeposit: '+\
-                     str(item[2])+ "\nprice per hour: "+ str(item[3])+ '\ncurrent stock: '+ str(item[4])+ "\n")
+        inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ str(item[1])+\
+                              '\ndeposit: '+ str(item[2])+"\nprice per hour: "+ str(item[3])+\
+                                                     '\ncurrent stock: '+ str(item[4])+ "\n")
     return inventory_string
 
 def update_inventory(name, quantity, filename):
@@ -92,17 +95,6 @@ def update_revenue(rent, sales_tax, filename):
  # opens revenue file in append mode and appends new deposit to file
     return write_row(filename, [[rent, sales_tax]])
 
-# def write_row(filename, values_to_write):
-#     """ (file, list) --> None
-#     Takes in a filename and list of data to be written in a row on the file.
-#     """
-#     with open(filename, 'a', newline='') as file:
-#         writer = csv.writer(file)
-#         writer.writerow(values_to_write)
-#     with open(filename) as file:
-#         content = file.read()
-#         if len(content) > 0:
-#             return True
 
 def write_row(filename, values_to_write):
     """ (file, list) --> None
