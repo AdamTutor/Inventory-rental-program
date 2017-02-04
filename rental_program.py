@@ -79,35 +79,39 @@ def return_item():
         print("\n"+item[0])
     item = input("\nWhat item are you returning\n")
     returning_item = get_item_by_name(get_file_contents('inventory.csv'), item)
-    hours = input("How many hours was the product rented? ")
-    item_status = input("Is the product broken or damaged y/n? ")
-    if item_status == "y":
-        print("Your deposit will not be returned you owe the following:"+ \
-                str(returning_item.replacement_value) +" dollars for replacement of the item. and "\
-                + str(int(returning_item.price) * int(hours)) + " for rent.")
-        rent_amount = int(returning_item.price) * int(hours)
-        sales_tax = rent_amount * 0.07
-        update_revenue(rent_amount, sales_tax, 'revenue.csv')
-        update_transaction(datetime.datetime.now(), returning_item.name, \
-        "compensated", 'transaction.csv')
-        restart()
-    elif item_status == 'n':
-        print("Your deposit will be returned you owe the following: "+ \
-        str(int(returning_item.price) * int(hours)) + " for rent.")
-
-        update_inventory(returning_item.name, int(returning_item.quantity)+1, 'inventory.csv')
-        rent_amount = int(returning_item.price) * int(hours)
-        sales_tax = rent_amount * 0.07
-        update_revenue(rent_amount, sales_tax, 'revenue.csv')
-        update_transaction(datetime.datetime.now(), returning_item.name, \
-        "returned", 'transaction.csv')
-        restart()
-    elif item_status == "q":
-        print('System closing....')
-    
-    else:
-        print('\nInvalid Input\n')
+    if returning_item == None:
+        print("Invalid Input " + item + " is not in inventory to be returned")
         return_item()
+    else:
+        hours = input("How many hours was the product rented? ")
+        item_status = input("Is the product broken or damaged y/n? ")
+        if item_status == "y":
+            print("Your deposit will not be returned you owe the following:"+ \
+                    str(returning_item.replacement_value) +" dollars for replacement of the item. and "\
+                    + str(int(returning_item.price) * int(hours)) + " for rent.")
+            rent_amount = int(returning_item.price) * int(hours)
+            sales_tax = rent_amount * 0.07
+            update_revenue(rent_amount, sales_tax, 'revenue.csv')
+            update_transaction(datetime.datetime.now(), returning_item.name, \
+            "compensated", 'transaction.csv')
+            restart()
+        elif item_status == 'n':
+            print("Your deposit will be returned you owe the following: "+ \
+            str(int(returning_item.price) * int(hours)) + " for rent.")
+
+            update_inventory(returning_item.name, int(returning_item.quantity)+1, 'inventory.csv')
+            rent_amount = int(returning_item.price) * int(hours)
+            sales_tax = rent_amount * 0.07
+            update_revenue(rent_amount, sales_tax, 'revenue.csv')
+            update_transaction(datetime.datetime.now(), returning_item.name, \
+            "returned", 'transaction.csv')
+            restart()
+        elif item_status == "q":
+            print('System closing....')
+        
+        else:
+            print('\nInvalid Input\n')
+            return_item()
 
 
 def start():
