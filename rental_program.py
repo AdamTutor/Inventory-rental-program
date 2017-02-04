@@ -7,7 +7,7 @@ program and your choice will call the next part of the program. The program is m
 
 import datetime
 from inventory import *
-
+import sys
 
 
 def customer():
@@ -18,6 +18,9 @@ def customer():
         rent()
     elif choice == "return":
         return_item()
+    elif choice == "q":
+        print("System closing...")
+        sys.exit()
     else:
         print("\nINVALID INPUT\n")
         print('did you mean rent or return? ')
@@ -30,22 +33,29 @@ def rent():
     print(view_inv(inv))
     item = input("What will you be renting? Product name: ").strip().lower()
     customer_choice = get_item_by_name(get_file_contents('inventory.csv'), item)
-    print(customer_choice.deposit_value, customer_choice.price)
-    print("You must place a deposit of", customer_choice.deposit_value,\
-         " dollars along with a fee of", customer_choice.price,\
-         " dollars every hour the item is rented. Deposits are refunded upon return.\n")
-    print("Conform you purchase for\n", str(customer_choice))
-    confirmation = input('y/n')
-    if confirmation == "y":
-        update_inventory(customer_choice.name, int(customer_choice.quantity)- 1, 'inventory.csv')
-        update_transaction(datetime.datetime.now(), customer_choice.name, "pending", 'transaction.csv')
-        update_deposits(customer_choice.deposit_value, 'deposit.csv')
-        restart()
-    elif confirmation == "n":
-        restart()
+    if customer_choice == None:
+        print("\nInvalid choice " + item + " is not in inventory\n")
+        rent()
     else:
-        print('invalid entry')
-        restart()
+        print(customer_choice.deposit_value, customer_choice.price)
+        print("You must place a deposit of", customer_choice.deposit_value,\
+            " dollars along with a fee of", customer_choice.price,\
+            " dollars every hour the item is rented. Deposits are refunded upon return.\n")
+        print("Conform you purchase for\n", str(customer_choice))
+        confirmation = input('y/n')
+        if confirmation == "y":
+            update_inventory(customer_choice.name, int(customer_choice.quantity)- 1, 'inventory.csv')
+            update_transaction(datetime.datetime.now(), customer_choice.name, "pending", 'transaction.csv')
+            update_deposits(customer_choice.deposit_value, 'deposit.csv')
+            restart()
+        elif confirmation == "n":
+            restart()
+        elif confirmation == "q":
+            print("System closing...")
+            sys.exit()
+        else:
+            print('invalid entry')
+            restart()
 
 
 def restart():
@@ -92,6 +102,9 @@ def return_item():
         update_transaction(datetime.datetime.now(), returning_item.name, \
         "returned", 'transaction.csv')
         restart()
+    elif item_status == "q":
+        print('System closing....')
+    
     else:
         print('\nInvalid Input\n')
         return_item()

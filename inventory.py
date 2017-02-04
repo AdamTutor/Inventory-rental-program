@@ -1,6 +1,6 @@
 import csv
 from Rental_classes import *
-from inventory import * 
+
 
 
 
