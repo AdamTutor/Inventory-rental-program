@@ -8,7 +8,7 @@ from inventory import *
 
 
 
-# Helper functions for testing.
+# # Helper functions for testing.
 def create_file(filename):
     "creates a file called test.csv"
     with open(filename, 'w') as tfile:
@@ -69,10 +69,10 @@ def test_get_item_by_name():
             ['xbox1', 400, 40, 3, 20], ['TEST', 400, 40, 3, 20]])
     test_inventory = get_file_contents('test.csv')
     name = get_item_by_name(test_inventory, 'ps4')
-    t = get_item_by_name(test_inventory, 'xbox1')
-    test = get_item_by_name(test_inventory,'TEST')
+    xbox = get_item_by_name(test_inventory, 'xbox1')
+    test = get_item_by_name(test_inventory, 'TEST')
     assert name.name == 'ps4'
-    assert t.name == 'xbox1'
+    assert xbox.name ==  'xbox1'
     assert test.name == 'TEST'
     os.remove("test.csv")
 

@@ -31,8 +31,7 @@ def get_item_by_name(inventory_list, name):
         if customer_item.name == name:
             return customer_item
         else:
-            return None
-
+            customer_item = None
 #IS TESTED#
 def view_trans(trans_list):
     """(list) --> None
@@ -86,13 +85,13 @@ def update_inventory(name, quantity, filename):
         inv = file.read()
         return inv
 
-
+#IS TESTED#
 def update_transaction(date, item, status, filename):
     """ (Datetime, Item_obj, str) --> none
     Takes in a datetime, Item object and status. That data is appended to transaction.csv file"""
     return write_row(filename, [[date, item, status]])
 
-
+#IS TESTED#
 def update_revenue(rent, sales_tax, filename):
     """ (int, int) --> none
  Takes in the amount a person paid on rent plus the taxes of that sale"""
@@ -113,7 +112,7 @@ def write_row(filename, values_to_write):
         content = file.read()
         return content
 
-
+#IS TESTED#
 def update_deposits(deposit, filename):
     """ (int) --> none
  Takes in the deposit amount from a sale and writes it to a file"""
