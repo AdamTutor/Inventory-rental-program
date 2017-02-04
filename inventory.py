@@ -1,5 +1,6 @@
 import csv
 from Rental_classes import *
+from inventory import * 
 
 
 
@@ -29,6 +30,8 @@ def get_item_by_name(inventory_list, name):
         customer_item = Item(i[0], i[1], i[2], i[3], i[4])
         if customer_item.name == name:
             return customer_item
+        else:
+            return None
 
 #IS TESTED#
 def view_trans(trans_list):
