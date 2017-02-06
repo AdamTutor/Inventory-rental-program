@@ -39,7 +39,7 @@ def view_trans(trans_list):
     trans_string = ""
     for transaction in trans_list:
         trans_string += ("\nDatetime: " + str(transaction[0]) + "\nItem:" + str(transaction[1]) + \
-                                         "\nstatus" + str(transaction[2]) + "\n")
+                                         "\nstatus " + str(transaction[2]) + "\n")
     return trans_string
 
  #IS TESTED#
@@ -49,9 +49,9 @@ def view_inv(inventory_list):
     # Pulls inventory data from a list of lists and prints it
     inventory_string = ''
     for item in inventory_list:
-        inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ str(item[1])+\
-                              '\ndeposit: '+ str(item[2])+"\nprice per hour: "+ str(item[3])+\
-                                                     '\ncurrent stock: '+ str(item[4])+ "\n")
+        inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ "$" + str(item[1])+\
+                              '\ndeposit: '+"$"+ str(item[2])+"\nprice per hour: "+ "$" + str(item[3])+\
+                                                     '\ncurrent stock: '+ "$" + str(item[4])+ "\n")
     return inventory_string
 
 
@@ -143,5 +143,5 @@ def view_revenue(file1, file2):
     for deposit in deposits:
         deposits_list.append(int(deposit[0]))
     deposit_total = sum(deposits_list)
-    return "All current pending deposits: ", deposit_total, "total w/o tax:",\
-     total, "sales tax: ", tax, "total: ", final_total
+    return "All current pending deposits: " + "$", deposit_total, "total w/o tax: $",\
+     total, "sales tax: $", tax, "total: $", final_total

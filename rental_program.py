@@ -37,11 +37,11 @@ def customer():
 
 
 def rent():
-    "Input determines what itme is being rented"
+    "Input determines what item is being rented"
     inv = get_file_contents('inventory.csv')
     print(view_inv(inv))
     item = input("What will you be renting? Product name: ").strip().capitalize()
-    if item == "q":
+    if item == "Q":
         print('System closing...')
         sys.exit()
     else:
@@ -51,11 +51,11 @@ def rent():
             rent()
         else:
             print(customer_choice.deposit_value, customer_choice.price)
-            print("You must place a deposit of", customer_choice.deposit_value,\
-                " dollars along with a fee of", customer_choice.price,\
-                " dollars every hour the item is rented. Deposits are refunded upon return.\n")
+            print("You must place a deposit of $", customer_choice.deposit_value,\
+                "along with a fee of $", customer_choice.price,\
+                "every hour the item is rented. Deposits are refunded upon return.\n")
             print("Conform you purchase for\n", str(customer_choice))
-            confirmation = input('y/n').strip().lower()
+            confirmation = input('y/n\n').strip().lower()
             if confirmation == "y":
                 update_inventory(customer_choice.name, \
                 int(customer_choice.quantity)- 1, 'inventory.csv')
@@ -75,13 +75,13 @@ def rent():
 
 def restart():
     "Takes in user input to direct them to a different program section of their choice"
-    print("\n\nrent to return to renting\nreturn to return an item\nstart to restart program\nq to quit ?\n")
+    print("\nType: rent to rent an item\nType: return to return an item\nType: start to restart program\nType: q to quit\n")
     choice = input().strip().lower()
     if choice == "rent":
         rent()
     elif choice == "return":
         return_item()
-    elif choice == "s":
+    elif choice == "start":
         start()
     elif choice == "q":
         print('System closing....')
@@ -96,7 +96,7 @@ def return_item():
     for item in inv:
         print("\n"+item[0])
     item = input("\nWhat item are you returning\n").strip().capitalize()
-    if item == 'q':
+    if item == 'Q':
         print("System closing....")
         sys.exit()
     else:
@@ -115,7 +115,7 @@ def return_item():
                     print("Your deposit will not be returned you owe the following:"+ \
                             str(returning_item.replacement_value) +\
                             " dollars for replacement of the item. and "\
-                            + str(int(returning_item.price) * int(hours)) + " for rent.")
+                            + "$" + str(int(returning_item.price) * int(hours)) + " for rent.")
                     rent_amount = int(returning_item.price) * int(hours)
                     sales_tax = rent_amount * 0.07
                     update_revenue(rent_amount, sales_tax, 'revenue.csv')
@@ -123,7 +123,7 @@ def return_item():
                     "compensated", 'transaction.csv')
                     restart()
                 elif item_status == 'n':
-                    print("Your deposit will be returned you owe the following: "+ \
+                    print("Your deposit will be returned you owe the following: $"+ \
                     str(int(returning_item.price) * int(hours)) + " for rent.")
 
                     update_inventory(returning_item.name, int(returning_item.quantity)+1, 'inventory.csv')
@@ -146,12 +146,12 @@ def return_item():
 
 def start():
     "Initialized program start"
-    print('Are you wanting to do a customer or manager action')
+    
     print('At anytime q will exit program')
-    action = input('c or m\n').strip().lower()
-    if action == "c":
+    action = input('Are you a customer or manager\n').strip().lower()
+    if action == "customer":
         customer()
-    elif action == "m":
+    elif action == "manager":
         manager()
     elif action == "q":
         print('System closing....')
@@ -163,9 +163,7 @@ def start():
 
 def manager():
     "Inputs for all manager actions"
-    print("s to restart")
-    print("Would you like to view current inventory , transaction history,revenue or replace a broken item?  ?")
-    choice = input("i/t/r/rq? \n").strip().lower()
+    choice = input('Type: i to view inventory\nType: t to view transaction history\nType: r to view revenue\nType: Replace to add a replacement item to inventory.\nType: s to restart\n').strip().lower()
     if choice == "i":
         inv = get_file_contents('inventory.csv')
         print(view_inv(inv))
@@ -181,7 +179,7 @@ def manager():
         manager()
     elif choice == 'rq':
         name = input("Product being replaced: ").strip().capitalize()
-        quantity = input("How many? ").strip().capitalize()
+        quantity = input("How many? ").strip()
         if quantity.isdigit() != True:
             print("invalid input")
             manager()
