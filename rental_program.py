@@ -75,8 +75,7 @@ def rent():
 
 def restart():
     "Takes in user input to direct them to a different program section of their choice"
-    print("rent to return to renting\nreturn to return an item\n\
-    start to restart program\nq to quit ?\n")
+    print("\n\nrent to return to renting\nreturn to return an item\nstart to restart program\nq to quit ?\n")
     choice = input().strip().lower()
     if choice == "rent":
         rent()
@@ -96,7 +95,7 @@ def return_item():
     inv = get_file_contents('inventory.csv')
     for item in inv:
         print("\n"+item[0])
-    item = input("\nWhat item are you returning\n").strip().lower()
+    item = input("\nWhat item are you returning\n").strip().capitalize()
     if item == 'q':
         print("System closing....")
         sys.exit()
