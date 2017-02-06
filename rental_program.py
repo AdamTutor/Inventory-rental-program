@@ -8,7 +8,16 @@ program and your choice will call the next part of the program. The program is m
 import datetime
 from inventory import *
 import sys
+import os
+from test_rental_classes import create_file
 
+
+if os.path("inventory.csv") == False:
+    create_file("inventory.csv")
+    create_file('deposit.csv')
+    create_file('revenue.csv')
+    create_file('transaction.csv')
+    write_row("inventory.csv", [['initial_file', 0, 0, 0, 0]])
 
 def customer():
     "Determines all customer actions and takes inputs to complete them"
@@ -156,8 +165,8 @@ def start():
 def manager():
     "Inputs for all manager actions"
     print("s to restart")
-    print("Would you like to view current inventory , transaction history or revenue?")
-    choice = input("i/t/r? \n").strip().lower()
+    print("Would you like to view current inventory , transaction history,revenue or replace a broken item?  ?")
+    choice = input("i/t/r/rq? \n").strip().lower()
     if choice == "i":
         inv = get_file_contents('inventory.csv')
         print(view_inv(inv))
@@ -170,6 +179,14 @@ def manager():
         trans = get_file_contents('revenue.csv')
         rev = view_revenue('revenue.csv', 'deposit.csv')
         print(rev[0], rev[1], "\n" + rev[2], rev[3], "\n" + rev[4], rev[5], "\n"+ rev[6], rev[7])
+        manager()
+    elif choice == 'rq':
+        name = input("Product being replaced: ").strip().capitalize()
+        quantity = input("How many? ").strip().capitalize()
+        inv = get_file_contents("inventory.csv")
+        item = get_item_by_name(inv, name)
+        update_inventory(name, int(item.quantity)+int(quantity), 'inventory.csv')
+        print("Inventory has been updated")
         manager()
     elif choice == "s":
         start()
