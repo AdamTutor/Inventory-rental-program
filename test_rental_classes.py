@@ -49,7 +49,7 @@ class Test_Transaction():
 def test_create_file():
     'Tests that create_file() function creates a empty file'
     create_file('test.csv')
-    assert os.path.isfile("/home/basecamp/Projects/Inventory-rental-program/test.csv")
+    assert os.path.isfile("test.csv")
 
 
 def test_get_file_contents():
