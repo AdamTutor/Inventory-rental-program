@@ -53,7 +53,7 @@ def view_inv(inventory_list):
     for item in inventory_list:
         inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ str(item[1])+\
                               '\ndeposit: '+ str(item[2])+"\nprice per hour: "+ str(item[3])+\
-                                                     '\ncurrent stock: '+ str(item[3])+ "\n")
+                                                     '\ncurrent stock: '+ str(item[4])+ "\n")
     return inventory_string
 
 
