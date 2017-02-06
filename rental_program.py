@@ -17,7 +17,7 @@ if os.path.isfile("inventory.csv") == False:
     create_file('deposit.csv')
     create_file('revenue.csv')
     create_file('transaction.csv')
-    write_row("inventory.csv", [['Ps4',400,40,3,24],['Xbox 1',20,25,3,250],['Gaming computer',1000,100,3,20], ['Ps4',ontroller,60,5,1,50], ['Xbox 1',controller,50,5,1,50], ['Standard headsets',80,8,0.25,20],['Premium headsets',200,20,0.75,20]])
+    write_row("inventory.csv", [['Ps4',400,40,3,24],['Xbox 1',20,25,3,250],['Gaming computer',1000,100,3,20], ['Ps4 controller',60,5,1,50], ['Xbox 1 controller',50,5,1,50], ['Standard headsets',80,8,0.25,20],['Premium headsets',200,20,0.75,20]])
 
 def customer():
     "Determines all customer actions and takes inputs to complete them"
