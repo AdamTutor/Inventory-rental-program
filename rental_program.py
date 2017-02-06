@@ -13,7 +13,7 @@ import sys
 def customer():
     "Determines all customer actions and takes inputs to complete them"
     print('Are you renting or returning an item? ')
-    choice = input("rent or return\n")
+    choice = input("rent or return\n").strip().lower()
     if choice == "rent":
         rent()
     elif choice == "return":
@@ -31,7 +31,7 @@ def rent():
     "Input determines what itme is being rented"
     inv = get_file_contents('inventory.csv')
     print(view_inv(inv))
-    item = input("What will you be renting? Product name: ").strip().lower()
+    item = input("What will you be renting? Product name: ").strip().capitalize()
     if item == "q":
         print('System closing...')
         sys.exit()
@@ -46,10 +46,12 @@ def rent():
                 " dollars along with a fee of", customer_choice.price,\
                 " dollars every hour the item is rented. Deposits are refunded upon return.\n")
             print("Conform you purchase for\n", str(customer_choice))
-            confirmation = input('y/n')
+            confirmation = input('y/n').strip().lower()
             if confirmation == "y":
-                update_inventory(customer_choice.name, int(customer_choice.quantity)- 1, 'inventory.csv')
-                update_transaction(datetime.datetime.now(), customer_choice.name, "pending", 'transaction.csv')
+                update_inventory(customer_choice.name, \
+                int(customer_choice.quantity)- 1, 'inventory.csv')
+                update_transaction(datetime.datetime.now(),\
+                 customer_choice.name, "pending", 'transaction.csv')
                 update_deposits(customer_choice.deposit_value, 'deposit.csv')
                 restart()
             elif confirmation == "n":
@@ -64,9 +66,13 @@ def rent():
 
 def restart():
     "Takes in user input to direct them to a different program section of their choice"
-    choice = input("k to keep shopping, s to start over, q to quit ?\n")
-    if choice == "k":
+    print("rent to return to renting\nreturn to return an item\n\
+    start to restart program\nq to quit ?\n")
+    choice = input().strip().lower()
+    if choice == "rent":
         rent()
+    elif choice == "return":
+        return_item()
     elif choice == "s":
         start()
     elif choice == "q":
@@ -81,7 +87,7 @@ def return_item():
     inv = get_file_contents('inventory.csv')
     for item in inv:
         print("\n"+item[0])
-    item = input("\nWhat item are you returning\n")
+    item = input("\nWhat item are you returning\n").strip().lower()
     if item == 'q':
         print("System closing....")
         sys.exit()
@@ -91,16 +97,16 @@ def return_item():
             print("Invalid Input " + item + " is not in inventory to be returned")
             return_item()
         else:
-            hours = input("How many hours was the product rented? ")
+            hours = input("How many hours was the product rented? ").strip().lower()
             if hours == "q":
                 print('System closing....')
                 sys.exit()
             elif hours.isdigit():
-                item_status = input("Is the product broken or damaged y/n? ")
-            
+                item_status = input("Is the product broken or damaged y/n? ").strip().lower()
                 if item_status == "y":
                     print("Your deposit will not be returned you owe the following:"+ \
-                            str(returning_item.replacement_value) +" dollars for replacement of the item. and "\
+                            str(returning_item.replacement_value) +\
+                            " dollars for replacement of the item. and "\
                             + str(int(returning_item.price) * int(hours)) + " for rent.")
                     rent_amount = int(returning_item.price) * int(hours)
                     sales_tax = rent_amount * 0.07
