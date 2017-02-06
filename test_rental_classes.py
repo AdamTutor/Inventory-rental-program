@@ -140,11 +140,13 @@ def test_view_trans():
 
 def test_view_revenue():
     create_file('test.csv')
-    write_row("test.csv", [[90000, 38.0]])
     create_file('test2.csv')
-    write_row("test2.csv", [[20],[20],[20],[20]])
     test = view_revenue('test.csv', 'test2.csv')
-    assert test == ('All current pending deposits: ', 80, 'total w/o tax:', 90000, 'sales tax: ', 38.0, 'total: ', 90038.0)
+    assert test == ('All current pending deposits: ', 0, 'total w/o tax:', 0, 'sales tax: ', 0, 'total: ', 0)
+    write_row("test.csv", [[90000, 38.0]])
+    write_row("test2.csv", [[20],[20],[20],[20]])
+    test2 = view_revenue('test.csv', 'test2.csv')
+    assert test2 == ('All current pending deposits: ', 80, 'total w/o tax:', 90000, 'sales tax: ', 38.0, 'total: ', 90038.0)
     os.remove("test.csv")
     os.remove("test2.csv")
 
