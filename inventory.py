@@ -53,7 +53,7 @@ def view_inv(inventory_list):
     for item in inventory_list:
         inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ str(item[1])+\
                               '\ndeposit: '+ str(item[2])+"\nprice per hour: "+ str(item[3])+\
-                                                     '\ncurrent stock: '+ str(item[4])+ "\n")
+                                                     '\ncurrent stock: '+ str(item[3])+ "\n")
     return inventory_string
 
 
@@ -129,14 +129,19 @@ def view_revenue(file1, file2):
     rev = get_file_contents(file1)
     # Pulls data from files and stores them in lists. Gets the sum
     #  of those lists to do calculations for sales tax and total profit
-    for i in rev:
-        revenue_list.append(int(i[0]))
-        tax_list.append(float(i[1]))
-        total = sum(revenue_list)
-        tax = sum(tax_list)
-        final_total = total + tax
-    deposits = get_file_contents(file2)
+    if len(rev) > 0:
+        for i in rev:
+            revenue_list.append(int(i[0]))
+            tax_list.append(float(i[1]))
+            total = sum(revenue_list)
+            tax = sum(tax_list)
+            final_total = total + tax
+    else:
+        tax = 0
+        total = 0
+        final_total = 0
     # Reads deposit fle and collects total deposits
+    deposits = get_file_contents(file2)
     for deposit in deposits:
         deposits_list.append(int(deposit[0]))
     deposit_total = sum(deposits_list)
