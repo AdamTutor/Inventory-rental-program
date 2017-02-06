@@ -2,9 +2,6 @@ import csv
 from Rental_classes import *
 
 
-
-
-
 #IS TESTED#
 def get_file_contents(filename):
     """ (file_obj) --> (list)

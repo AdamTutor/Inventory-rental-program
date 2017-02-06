@@ -12,7 +12,7 @@ import os
 from test_rental_classes import create_file
 
 
-if os.path("inventory.csv") == False:
+if os.path.isfile("inventory.csv") == False:
     create_file("inventory.csv")
     create_file('deposit.csv')
     create_file('revenue.csv')
@@ -193,5 +193,4 @@ def manager():
     elif choice == "q":
         print('System closing....')
         sys.exit()
-
 start()
