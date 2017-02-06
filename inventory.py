@@ -29,6 +29,7 @@ def get_item_by_name(inventory_list, name):
             return customer_item
         else:
             customer_item = None
+    return customer_item
 #IS TESTED#
 def view_trans(trans_list):
     """(list) --> None

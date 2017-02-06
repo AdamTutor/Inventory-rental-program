@@ -17,7 +17,7 @@ if os.path.isfile("inventory.csv") == False:
     create_file('deposit.csv')
     create_file('revenue.csv')
     create_file('transaction.csv')
-    write_row("inventory.csv", [['initial_file', 0, 0, 0, 0]])
+    write_row("inventory.csv", [['Ps4',400,40,3,24],['Xbox 1',20,25,3,250],['Gaming computer',1000,100,3,20], ['Ps4',ontroller,60,5,1,50], ['Xbox 1',controller,50,5,1,50], ['Standard headsets',80,8,0.25,20],['Premium headsets',200,20,0.75,20]])
 
 def customer():
     "Determines all customer actions and takes inputs to complete them"
@@ -183,10 +183,19 @@ def manager():
     elif choice == 'rq':
         name = input("Product being replaced: ").strip().capitalize()
         quantity = input("How many? ").strip().capitalize()
+        if quantity.isdigit() != True:
+            print("invalid input")
+            manager()
+        if name == "q" or quantity == "q":
+            print('System closing...')
+            sys.exit()
         inv = get_file_contents("inventory.csv")
         item = get_item_by_name(inv, name)
+        if item == None:
+            print('invaid input')
+            manager()
         update_inventory(name, int(item.quantity)+int(quantity), 'inventory.csv')
-        print("Inventory has been updated")
+        print("\nInventory has been updated\n")
         manager()
     elif choice == "s":
         start()
