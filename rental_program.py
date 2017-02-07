@@ -54,7 +54,7 @@ def rent():
             print("You must place a deposit of $", customer_choice.deposit_value,\
                 "along with a fee of $", customer_choice.price,\
                 "every hour the item is rented. Deposits are refunded upon return.\n")
-            print("Conform you purchase for\n", str(customer_choice))
+            print("Confirm you purchase for\n", str(customer_choice))
             confirmation = input('y/n\n').strip().lower()
             if confirmation == "y":
                 update_inventory(customer_choice.name, \
@@ -125,7 +125,7 @@ def return_item():
                 elif item_status == 'n':
                     print("Your deposit will be returned you owe the following: $"+ \
                     str(int(returning_item.price) * int(hours)) + " for rent.")
-
+                    return_deposits(returning_item.deposit_value, 'deposit.csv')
                     update_inventory(returning_item.name, int(returning_item.quantity)+1, 'inventory.csv')
                     rent_amount = int(returning_item.price) * int(hours)
                     sales_tax = rent_amount * 0.07
