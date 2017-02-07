@@ -119,18 +119,20 @@ def update_deposits(deposit, filename):
 
 def return_deposits(item, filename):
     deposit = get_file_contents(filename)
-    new_deposit = []
-    for i in deposit:
-        new_deposit.append(i[0])
+    if len(deposit) == 0:
+        print("There are not items to be returned did you mean to rent? ")
+    else:
+        new_deposit = []
+        for i in deposit:
+            new_deposit.append(i[0])
+            print(len(new_deposit))
+        new_deposit.pop(new_deposit.index(item))
         print(len(new_deposit))
-    new_deposit.pop(new_deposit.index(item))
-    print(len(new_deposit))
-    open(filename, 'w').close()
-    with open(filename, 'w') as file:
-     writer = csv.writer(file)
-     for i in new_deposit:
-         print(type(i))
-         writer.writerow([i])
+        open(filename, 'w').close()
+        with open(filename, 'w') as file:
+            writer = csv.writer(file)
+            for i in new_deposit:
+                writer.writerow([i])
     
 
 
