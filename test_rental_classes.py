@@ -123,32 +123,35 @@ def test_update_deposits():
 
 
 
-#Test the display of files contents
+
 def test_view_inv():
-    inv = [['ps4', '100', '20', '20','-18']]
+    inv = [['ps4', '100', '20', '20','20']]
     test = view_inv(inv)
-    assert test == ('\nProduct: ' + 'ps4'+ '\nreplacement value: '+ '100' + '\ndeposit: '+\
-                     '20'+ "\nprice per hour: "+ '20' + '\ncurrent stock: '+ '-18' + "\n")
+    assert test == ('\nProduct: ' + 'ps4' + '\nreplacement value: '+ "$" + '100' + '\ndeposit: '+\
+                     "$" + '20' +"\nprice per hour: "+ "$" + '20' + '\ncurrent stock: '+ '20' + "\n")
 
 
 def test_view_trans():
     trans = [['2017-01-30 14:37:54.026520','xbox1','pending']]
     test = view_trans(trans)
-    assert test == ("\nDatetime: " +'2017-01-30 14:37:54.026520' + "\nItem:" + 'xbox1' + \
-                                         "\nstatus" + 'pending' + "\n")
+    assert test == ("\nDatetime: " + '2017-01-30 14:37:54.026520' + "\nItem:" + 'xbox1' + \
+                                         "\nstatus " + 'pending' + "\n")
 
 
 def test_view_revenue():
     create_file('test.csv')
     create_file('test2.csv')
     test = view_revenue('test.csv', 'test2.csv')
-    assert test == ('All current pending deposits: ', 0, 'total w/o tax:', 0, 'sales tax: ', 0, 'total: ', 0)
+    assert test == ("All current pending deposits: " + "$", 0, "total w/o tax: $",0, "sales tax: $", 0, "total: $", 0)
     write_row("test.csv", [[90000, 38.0]])
     write_row("test2.csv", [[20],[20],[20],[20]])
     test2 = view_revenue('test.csv', 'test2.csv')
-    assert test2 == ('All current pending deposits: ', 80, 'total w/o tax:', 90000, 'sales tax: ', 38.0, 'total: ', 90038.0)
+    assert test2 == ("All current pending deposits: " + "$", 80, "total w/o tax: $",90000, "sales tax: $", 38.0, "total: $", 90038.0)
     os.remove("test.csv")
     os.remove("test2.csv")
+
+
+    
 
 
 
