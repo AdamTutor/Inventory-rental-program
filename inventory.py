@@ -32,7 +32,7 @@ def get_item_by_name(inventory_list, name):
     return customer_item
 #IS TESTED#
 def view_trans(trans_list):
-    """(list) --> None
+    """(list) --> String
     Takes in a list of data representing transactions and displays them in a human readable format.
     """
     # Pulls transaction data from a list of lists and prints it
@@ -51,7 +51,7 @@ def view_inv(inventory_list):
     for item in inventory_list:
         inventory_string += ('\nProduct: ' + str(item[0])+ '\nreplacement value: '+ "$" + str(item[1])+\
                               '\ndeposit: '+"$"+ str(item[2])+"\nprice per hour: "+ "$" + str(item[3])+\
-                                                     '\ncurrent stock: '+ "$" + str(item[4])+ "\n")
+                                                     '\ncurrent stock: '+ str(item[4])+ "\n")
     return inventory_string
 
 
@@ -115,6 +115,23 @@ def update_deposits(deposit, filename):
     """ (int) --> none
  Takes in the deposit amount from a sale and writes it to a file"""
     return write_row(filename, [[deposit]])
+
+
+def return_deposits(item, filename):
+    deposit = get_file_contents(filename)
+    new_deposit = []
+    for i in deposit:
+        new_deposit.append(i[0])
+        print(len(new_deposit))
+    new_deposit.pop(new_deposit.index(item))
+    print(len(new_deposit))
+    open(filename, 'w').close()
+    with open(filename, 'w') as file:
+     writer = csv.writer(file)
+     for i in new_deposit:
+         print(type(i))
+         writer.writerow([i])
+    
 
 
 #IS TESTED#
