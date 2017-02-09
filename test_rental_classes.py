@@ -71,9 +71,12 @@ def test_get_item_by_name():
     name = get_item_by_name(test_inventory, 'ps4')
     xbox = get_item_by_name(test_inventory, 'xbox1')
     test = get_item_by_name(test_inventory, 'TEST')
+    not_an_item = get_item_by_name(test_inventory, 'notanitem')
     assert name.name == 'ps4'
     assert xbox.name ==  'xbox1'
     assert test.name == 'TEST'
+    assert not_an_item == None
+    
     os.remove("test.csv")
 
 
@@ -119,6 +122,9 @@ def test_update_deposits():
     deposit = 20
     test = update_deposits(deposit, 'test.csv')
     assert test == '20\n'
+    return_deposits('20', 'test.csv')
+    assert len(get_file_contents('test.csv')) == 0
+    return_deposits('20', 'test.csv')
     os.remove('test.csv')
 
 
@@ -151,10 +157,6 @@ def test_view_revenue():
     os.remove("test2.csv")
 
 
-    
-
-
-
 def test_write_row():
     create_file('test.csv')
     write_row('test.csv', [['TEST', 'TEST', 'TEST'], ['TEST', 'TEST', 'TEST']])
@@ -162,6 +164,9 @@ def test_write_row():
         content = file.read()
     assert content == ('TEST,TEST,TEST\nTEST,TEST,TEST\n')
     os.remove("test.csv")
+
+
+   
 
     
 

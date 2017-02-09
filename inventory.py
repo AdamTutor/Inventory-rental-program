@@ -125,9 +125,7 @@ def return_deposits(item, filename):
         new_deposit = []
         for i in deposit:
             new_deposit.append(i[0])
-            print(len(new_deposit))
         new_deposit.pop(new_deposit.index(item))
-        print(len(new_deposit))
         open(filename, 'w').close()
         with open(filename, 'w') as file:
             writer = csv.writer(file)

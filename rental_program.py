@@ -174,8 +174,10 @@ def manager():
         manager()
     elif choice == "r":
         trans = get_file_contents('revenue.csv')
+        print("\n")
         rev = view_revenue('revenue.csv', 'deposit.csv')
         print(rev[0], rev[1], "\n" + rev[2], rev[3], "\n" + rev[4], rev[5], "\n"+ rev[6], rev[7])
+        print("\n")
         manager()
     elif choice == 'rq':
         name = input("Product being replaced: ").strip().capitalize()
