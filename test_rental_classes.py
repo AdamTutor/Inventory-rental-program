@@ -29,11 +29,7 @@ class Test_Item():
               "\nDeposit value: " + '40'+ "\nprice: " + \
                 '3'+ "\nquantity: " + '20'
 
-    def test_in_stock(self):
-        a = Item('ps4', 400, 40, 3, 0)
-        i = Item('ps4', 400, 40, 3, 20)
-        assert i.in_stock() == True
-        assert a.in_stock() == False
+    
 
 
 
