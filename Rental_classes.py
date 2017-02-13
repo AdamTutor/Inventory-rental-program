@@ -32,12 +32,7 @@ class Item():
               "\nDeposit value: " + str(self.deposit_value)+ "\nprice: " + \
                 str(self.price)+ "\nquantity: " + str(self.quantity)
  
-    def in_stock(self):
-        "..."
-        if self.quantity > 0:
-            return True
-        else:
-            return False
+    
 
 
 
